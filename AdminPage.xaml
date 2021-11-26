@@ -12,6 +12,7 @@
         <StackPanel>
             <Button Name="ShowData" Width="250" Height="50" Click="ShowData_Click" >Просмотр данных пользователей</Button>
             <Button Name="ShowOrders" Width="250" Height="50" Click="ShowOrders_Click">Просмотр заказов</Button>
+            <Button Name="PersonalParlor" Width="250" Height="50" Click="PersonalParlor_Click" >Личный кабинет</Button>
             <Button Width="250" Height="50" Click="Button_Click">К авторизации</Button>
         </StackPanel>
         

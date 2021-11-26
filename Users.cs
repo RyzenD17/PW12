@@ -32,5 +32,6 @@ namespace PW10_DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTable> OrdersTable { get; set; }
         public virtual RoleTable RoleTable { get; set; }
+        public virtual UserPhoto UserPhoto { get; set; }
     }
 }

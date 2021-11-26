@@ -23,6 +23,7 @@ namespace PW10_DB
         public AutoPage()
         {
             InitializeComponent();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,11 +51,11 @@ namespace PW10_DB
                 {
                     case 1:
                         MessageBox.Show("Добро пожаловать, "+ User.Name, "Авторизация");
-                        FrameClass.FrameMain.Navigate(new UserPage());
+                        FrameClass.FrameMain.Navigate(new UserPage(User));
                         break;
                     case 2:
                         MessageBox.Show("Вы вошли как Администратор. Добро пожаловать, " + User.Name, "Авторизация");
-                        FrameClass.FrameMain.Navigate(new AdminPage());
+                        FrameClass.FrameMain.Navigate(new AdminPage(User));
                         break;
                 }
             }

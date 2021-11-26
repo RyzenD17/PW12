@@ -20,9 +20,11 @@ namespace PW10_DB
     /// </summary>
     public partial class AdminPage : Page
     {
-        public AdminPage()
+        private Users _user;
+        public AdminPage(Users User)
         {
             InitializeComponent();
+            _user = User;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -32,12 +34,17 @@ namespace PW10_DB
 
         private void ShowData_Click(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new AdmShowPage());
+            FrameClass.FrameMain.Navigate(new AdmShowPage(_user));
         }
 
         private void ShowOrders_Click(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new AdminShowOrders());
+            FrameClass.FrameMain.Navigate(new AdminShowOrders(_user));
+        }
+
+        private void PersonalParlor_Click(object sender, RoutedEventArgs e)
+        {
+            FrameClass.FrameMain.Navigate(new UserPage(_user));
         }
     }
 }

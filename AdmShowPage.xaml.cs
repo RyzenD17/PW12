@@ -20,15 +20,17 @@ namespace PW10_DB
     /// </summary>
     public partial class AdmShowPage : Page
     {
-        public AdmShowPage()
+        private Users _user;
+        public AdmShowPage(Users User)
         {
             InitializeComponent();
+            _user = User;
             DgUsers.ItemsSource = BaseClass.Base.Users.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new AdminPage());
+            FrameClass.FrameMain.Navigate(new AdminPage(_user));
         }
     }
 }

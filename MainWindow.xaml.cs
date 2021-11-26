@@ -26,7 +26,7 @@ namespace PW10_DB
             InitializeComponent();
             FrameClass.FrameMain = FrmMain;
             BaseClass.Base = new Entities();
-            FrameClass.FrameMain.Navigate(new AdminShowOrders());
+            FrameClass.FrameMain.Navigate(new AutoPage());
         }
 
         private void BReg_Click(object sender, RoutedEventArgs e)

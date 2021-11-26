@@ -22,15 +22,18 @@ namespace PW10_DB
 
     public partial class CreateorUpdatePage : Page
     {
+        private Users _user;
         bool flag;
         OrdersTable order = new OrdersTable();
         List<WorkersTable> WorkersTableList = BaseClass.Base.WorkersTable.ToList();
         List<TimeTable> TimeTableList = BaseClass.Base.TimeTable.ToList();
 
-        public CreateorUpdatePage()
+        public CreateorUpdatePage(Users User)
         {
-            flag = true;
             InitializeComponent();
+            _user = User;
+            flag = true;
+          
             LBUsers.ItemsSource = BaseClass.Base.Users.ToList();
             LBUsers.SelectedValuePath = "IDUser";
             LBUsers.DisplayMemberPath = "Surname";
@@ -42,10 +45,11 @@ namespace PW10_DB
             LBTime.DisplayMemberPath = "WorkTime";
         }
 
-        public CreateorUpdatePage(OrdersTable OrderUpdate)
+        public CreateorUpdatePage(OrdersTable OrderUpdate,Users User)
         {
             InitializeComponent();
             order = OrderUpdate;
+            _user = User;
             TBWorkH.Text = Convert.ToString(OrderUpdate.WorkTime);
             switch(OrderUpdate.IDPets)
             {
@@ -88,7 +92,7 @@ namespace PW10_DB
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new AdminShowOrders());
+            FrameClass.FrameMain.Navigate(new AdminShowOrders(_user));
         }
 
         private void AddUpdate_Click(object sender, RoutedEventArgs e)
@@ -152,7 +156,7 @@ namespace PW10_DB
 
 
                 MessageBox.Show("Данные записаны!", "Запись");
-                FrameClass.FrameMain.Navigate(new AdminShowOrders());
+                FrameClass.FrameMain.Navigate(new AdminShowOrders(_user));
             }
             catch
             {

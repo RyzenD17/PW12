@@ -20,9 +20,11 @@ namespace PW10_DB
     /// </summary>
     public partial class AdminShowOrders : Page
     {
-        public AdminShowOrders()
+        private Users _user;
+        public AdminShowOrders(Users User)
         {
             InitializeComponent();
+            _user = User;
             LVOrders.ItemsSource = BaseClass.Base.OrdersTable.ToList();
         }
 
@@ -75,12 +77,12 @@ namespace PW10_DB
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new AdminPage());
+            FrameClass.FrameMain.Navigate(new AdminPage(_user));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            FrameClass.FrameMain.Navigate(new CreateorUpdatePage());
+            FrameClass.FrameMain.Navigate(new CreateorUpdatePage(_user));
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -90,7 +92,7 @@ namespace PW10_DB
             OrdersTable OrderDelete = BaseClass.Base.OrdersTable.FirstOrDefault(x => x.IDOrder == id);
             BaseClass.Base.OrdersTable.Remove(OrderDelete);
             BaseClass.Base.SaveChanges();
-            FrameClass.FrameMain.Navigate(new AdminShowOrders());
+            FrameClass.FrameMain.Navigate(new AdminShowOrders(_user));
             MessageBox.Show("Запись удалена!", "Удаление");
 
         }
@@ -100,7 +102,7 @@ namespace PW10_DB
             Button B = (Button)sender;
             int id = Convert.ToInt32(B.Uid);
             OrdersTable OrderUpdate = BaseClass.Base.OrdersTable.FirstOrDefault(x => x.IDOrder == id);
-            FrameClass.FrameMain.Navigate(new CreateorUpdatePage(OrderUpdate));
+            FrameClass.FrameMain.Navigate(new CreateorUpdatePage(OrderUpdate,_user));
 
 
 
