@@ -38,5 +38,10 @@ namespace PW10_DB
         {
             FrameClass.FrameMain.Navigate(new AutoPage());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            FrameClass.FrameMain.Navigate(new AdvertisingPage());
+        }
     }
 }

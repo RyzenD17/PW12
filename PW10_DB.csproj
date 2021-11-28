@@ -74,6 +74,9 @@
     <Compile Include="AdmShowPage.xaml.cs">
       <DependentUpon>AdmShowPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdvertisingPage.xaml.cs">
+      <DependentUpon>AdvertisingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AutoPage.xaml.cs">
       <DependentUpon>AutoPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdmShowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdvertisingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

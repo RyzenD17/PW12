@@ -18,6 +18,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" >
             <TextBlock  FontSize="24" Margin="0,15,0,0"><Run Text="Home services"/></TextBlock>
             <Image  Source="Resources/logotip.png"  HorizontalAlignment="Center" Width="71"/>
+            <Button Height="25" Margin="10,0,0,0" Click="Button_Click">Реклама</Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="0">
             <Button Name="BAuto" Height="30" Margin="5,4,5,1" Click="BAuto_Click" >Вход</Button>
