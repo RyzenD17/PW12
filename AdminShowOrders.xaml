@@ -9,11 +9,25 @@
       Title="AdminShowOrders">
     <ScrollViewer>
         <Grid>
-       
-            
-      
+           
+
       <StackPanel>
-        <ListView Name="LVOrders" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                <ComboBox Name="CBFilterGender" SelectionChanged="CBFilterGender_SelectionChanged"></ComboBox>
+                <TextBox Name="TBFilterSurname" TextChanged="TBFilterSurname_TextChanged"></TextBox>
+                <CheckBox Name="CBFilterPets" Checked="CBFilterPets_Checked" Unchecked="CBFilterPets_Unchecked" >Наличие домашнего животного</CheckBox>
+                <RadioButton Name="SortSurname" Checked="SortSurname_Checked">Сортировать по фамилии</RadioButton>
+                <RadioButton Name="SortHours" Checked="SortHours_Checked">Сортировать по часа</RadioButton>
+                <RadioButton Name="SortCost" Checked="SortCost_Checked">Сортировать по номеру заказа</RadioButton>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+                    <Button Click="Button_Click_4" Width="150">По возрастанию</Button>
+                    <Button Click="Button_Click_5" Width="150">По убыванию</Button>
+                </StackPanel>
+               
+          
+
+
+                <ListView Name="LVOrders" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel HorizontalAlignment="Center"></WrapPanel>

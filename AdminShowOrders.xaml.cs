@@ -21,11 +21,19 @@ namespace PW10_DB
     public partial class AdminShowOrders : Page
     {
         private Users _user;
+        List<OrdersTable> OrderStart = BaseClass.Base.OrdersTable.ToList();
         public AdminShowOrders(Users User)
         {
             InitializeComponent();
             _user = User;
-            LVOrders.ItemsSource = BaseClass.Base.OrdersTable.ToList();
+            LVOrders.ItemsSource = OrderStart;
+            List<GenderTable> GT = BaseClass.Base.GenderTable.ToList();
+            CBFilterGender.Items.Add("Все записи");
+            for (int i =0;i<GT.Count;i++)
+            {
+                CBFilterGender.Items.Add(GT[i].Gender);
+            }
+            CBFilterGender.SelectedIndex=0;
         }
 
         private void TextBlock_Loaded(object sender, RoutedEventArgs e)
@@ -103,10 +111,111 @@ namespace PW10_DB
             int id = Convert.ToInt32(B.Uid);
             OrdersTable OrderUpdate = BaseClass.Base.OrdersTable.FirstOrDefault(x => x.IDOrder == id);
             FrameClass.FrameMain.Navigate(new CreateorUpdatePage(OrderUpdate,_user));
-
-
-
         }
+        List<OrdersTable> OrdersFilter;
+        private void Filters()
+        {
+            int index = CBFilterGender.SelectedIndex;
+            if (index != 0)
+            {
+                OrdersFilter = OrderStart.Where(x => x.Users.IDGender == index).ToList();
+            }
+            else
+            {
+                OrdersFilter = OrderStart;
+            }
+            if (CBFilterPets.IsChecked == true)
+            {
+                OrdersFilter = OrdersFilter.Where(x => x.IDPets ==1).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(TBFilterSurname.Text))
+            {
+                OrdersFilter = OrdersFilter.Where(x => x.Users.Surname.ToLower().Contains(TBFilterSurname.Text.ToLower())).ToList();
+            }
+            LVOrders.ItemsSource = OrdersFilter;
+        }
+
+        private void CBFilterGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Filters();
+        }
+
+        private void CBFilterPets_Checked(object sender, RoutedEventArgs e)
+        {
+            Filters();
+        }
+
+        private void CBFilterPets_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Filters();
+        }
+
+        private void TBFilterSurname_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Filters();
+        }
+
+        private void SortSurname_Checked(object sender, RoutedEventArgs e)
+        {
+            SortCost.IsChecked = false;
+            SortHours.IsChecked = false;
+        }
+
+        private void SortCost_Checked(object sender, RoutedEventArgs e)
+        {
+            SortSurname.IsChecked = false;
+            SortHours.IsChecked = false;
+        }
+
+        private void SortHours_Checked(object sender, RoutedEventArgs e)
+        {
+            SortSurname.IsChecked = false;
+            SortCost.IsChecked = false;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (SortSurname.IsChecked == true)
+            {
+                OrdersFilter.Sort((x, y) => x.Users.Surname.CompareTo(y.Users.Surname));
+                LVOrders.Items.Refresh();
+            }
+            if(SortHours.IsChecked==true)
+            {
+                OrdersFilter.Sort((x, y) => x.WorkTime.CompareTo(y.WorkTime));
+                LVOrders.Items.Refresh();
+            }
+            if(SortCost.IsChecked==true)
+            {
+
+                OrdersFilter.Sort((x, y) => x.IDOrder.CompareTo(y.IDOrder));
+                LVOrders.Items.Refresh();
+            }
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (SortSurname.IsChecked == true)
+            {
+                OrdersFilter.Sort((x, y) => x.Users.Surname.CompareTo(y.Users.Surname));
+                OrdersFilter.Reverse();
+                LVOrders.Items.Refresh();
+            }
+            if (SortHours.IsChecked == true)
+            {
+                OrdersFilter.Sort((x, y) => x.WorkTime.CompareTo(y.WorkTime));
+                OrdersFilter.Reverse();
+                LVOrders.Items.Refresh();
+            }
+            if(SortCost.IsChecked==true)
+            {
+                OrdersFilter.Sort((x, y) => x.IDOrder.CompareTo(y.IDOrder));
+                OrdersFilter.Reverse();
+                LVOrders.Items.Refresh();
+            }
+        }
+
+       
     }
    
 }

@@ -12,10 +12,10 @@
         <StackPanel>
             <Label FontSize="18" HorizontalAlignment="Center">Авторизация</Label>
             <GroupBox Header="Введите логин">
-                <TextBox Name="TbLoginAvto" />
+                <TextBox Name="TbLoginAvto" Text="Admin" />
             </GroupBox>
             <GroupBox Header="Введите пароль">
-                <PasswordBox Name="TbPasAvto"/>
+                <PasswordBox Name="TbPasAvto" Password="Admin123!"/>
             </GroupBox>
             <Button Click="Button_Click">Авторизация</Button>
         </StackPanel>
