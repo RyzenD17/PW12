@@ -106,6 +106,7 @@
     <Compile Include="OrdersTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="PaginationClass.cs" />
     <Compile Include="PartialClass.cs" />
     <Compile Include="PetsTable.cs">
       <DependentUpon>Model1.tt</DependentUpon>

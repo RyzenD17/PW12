@@ -8,7 +8,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontStyle" Value="Italic"/>
-            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontWeight" Value="Regular"/>
             <Setter Property="Padding" Value="2"/>
         </Style>
         <Style TargetType="Button">

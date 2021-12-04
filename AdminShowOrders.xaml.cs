@@ -22,6 +22,8 @@ namespace PW10_DB
     {
         private Users _user;
         List<OrdersTable> OrderStart = BaseClass.Base.OrdersTable.ToList();
+        List<OrdersTable> OrderFilsterSort;
+        PaginationClass PC = new PaginationClass();
         public AdminShowOrders(Users User)
         {
             InitializeComponent();
@@ -34,6 +36,8 @@ namespace PW10_DB
                 CBFilterGender.Items.Add(GT[i].Gender);
             }
             CBFilterGender.SelectedIndex=0;
+            DataContext = PC;
+            PC.Countlist = OrderStart.Count;
         }
 
         private void TextBlock_Loaded(object sender, RoutedEventArgs e)
@@ -138,21 +142,25 @@ namespace PW10_DB
         private void CBFilterGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Filters();
+            txtPageCount_TextChanged(null, null);
         }
 
         private void CBFilterPets_Checked(object sender, RoutedEventArgs e)
         {
             Filters();
+            txtPageCount_TextChanged(null, null);
         }
 
         private void CBFilterPets_Unchecked(object sender, RoutedEventArgs e)
         {
             Filters();
+            txtPageCount_TextChanged(null, null);
         }
 
         private void TBFilterSurname_TextChanged(object sender, TextChangedEventArgs e)
         {
             Filters();
+            txtPageCount_TextChanged(null, null);
         }
 
         private void SortSurname_Checked(object sender, RoutedEventArgs e)
@@ -191,15 +199,17 @@ namespace PW10_DB
                 OrdersFilter.Sort((x, y) => x.IDOrder.CompareTo(y.IDOrder));
                 LVOrders.Items.Refresh();
             }
+            txtPageCount_TextChanged(null, null);
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             if (SortSurname.IsChecked == true)
             {
-                OrdersFilter.Sort((x, y) => x.Users.Surname.CompareTo(y.Users.Surname));
-                OrdersFilter.Reverse();
-                LVOrders.Items.Refresh();
+             
+                    OrdersFilter.Sort((x, y) => x.Users.Surname.CompareTo(y.Users.Surname));
+                    OrdersFilter.Reverse();
+                    LVOrders.Items.Refresh();  
             }
             if (SortHours.IsChecked == true)
             {
@@ -213,12 +223,48 @@ namespace PW10_DB
                 OrdersFilter.Reverse();
                 LVOrders.Items.Refresh();
             }
+            txtPageCount_TextChanged(null, null);
         }
 
-       
+        private void txtPageCount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                PC.CountPage = Convert.ToInt32(txtPageCount.Text); // если в текстовом поле есnь значение, присваиваем его свойству объекта, которое хранит количество записей на странице
+            }
+            catch
+            {
+                PC.CountPage = OrdersFilter.Count;
+            }
+            PC.Countlist = OrdersFilter.Count;
+            OrderFilsterSort= OrdersFilter.Skip(0).Take(PC.CountPage).ToList();
+            LVOrders.ItemsSource = OrdersFilter.Skip(0).Take(PC.CountPage).ToList();
+
+        }
+
+        private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tb = (TextBlock)sender;
+            switch (tb.Uid)
+            {
+                case "prev":
+                    PC.CurrentPage--;
+                break;
+                case "next":
+                    PC.CurrentPage++;
+                break;
+                default:
+                    PC.CurrentPage = Convert.ToInt32(tb.Text);
+                break;
+            }
+            OrderFilsterSort= OrdersFilter.Skip(PC.CurrentPage * PC.CountPage - PC.CountPage).Take(PC.CountPage).ToList();
+            LVOrders.ItemsSource = OrdersFilter.Skip(PC.CurrentPage * PC.CountPage - PC.CountPage).Take(PC.CountPage).ToList();
+
+        }
     }
-   
 }
+   
+
 
 
 
